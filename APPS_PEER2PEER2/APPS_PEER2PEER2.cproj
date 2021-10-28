@@ -1,0 +1,700 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>7.0</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ProjectGuid>dce6c7e3-ee26-4d79-826b-08594b9ad897</ProjectGuid>
+    <avrdevice>ATmega256RFR2</avrdevice>
+    <avrdeviceseries>mega</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AssemblyName>APPS_PEER2PEER2</AssemblyName>
+    <Name>APPS_PEER2PEER2</Name>
+    <RootNamespace>APPS_PEER2PEER2</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <BootSegment>2</BootSegment>
+    <ResetRule>0</ResetRule>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <EraseKey />
+    <AsfFrameworkConfig>
+      <framework-data>
+        <options>
+          <option id="common.boards" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="common.services.basic.gpio" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="thirdparty.wireless.addons.sio2host" value="Add" config="uart" content-id="Atmel.ASF" />
+          <option id="thirdparty.wireless.avr2130_lwmesh" value="Add" config="" content-id="Atmel.ASF" />
+          <option id="thirdparty.wireless.avr2130_lwmesh.apps.peer2peer" value="Add" config="" content-id="Atmel.ASF" />
+        </options>
+        <configurations>
+          <configuration key="config.thirdparty.wireless.addons.sio2host" value="uart" default="uart" content-id="Atmel.ASF" />
+        </configurations>
+        <files>
+          <file path="src/ASF/common/boards/board.h" framework="" version="" source="common/boards/board.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/clock/mega/sysclk.c" framework="" version="" source="common/services/clock/mega/sysclk.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/clock/mega/sysclk.h" framework="" version="" source="common/services/clock/mega/sysclk.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/clock/sysclk.h" framework="" version="" source="common/services/clock/sysclk.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/delay/delay.h" framework="" version="" source="common/services/delay/delay.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/delay/mega/cycle_counter.h" framework="" version="" source="common/services/delay/mega/cycle_counter.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/gpio/gpio.h" framework="" version="" source="common/services/gpio/gpio.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/gpio/mega_gpio/mega_gpio.h" framework="" version="" source="common/services/gpio/mega_gpio/mega_gpio.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/ioport/ioport.h" framework="" version="" source="common/services/ioport/ioport.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/ioport/mega/ioport.h" framework="" version="" source="common/services/ioport/mega/ioport.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/serial/megarf_usart/usart_serial.h" framework="" version="" source="common/services/serial/megarf_usart/usart_serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/serial/serial.h" framework="" version="" source="common/services/serial/serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/services/serial/usart_serial.c" framework="" version="" source="common/services/serial/usart_serial.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/interrupt.h" framework="" version="" source="common/utils/interrupt.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/interrupt/interrupt_avr8.h" framework="" version="" source="common/utils/interrupt/interrupt_avr8.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/make/Makefile.avr.in" framework="" version="" source="common/utils/make/Makefile.avr.in" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/parts.h" framework="" version="" source="common/utils/parts.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/stdio/read.c" framework="" version="" source="common/utils/stdio/read.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/stdio/stdio_serial/stdio_serial.h" framework="" version="" source="common/utils/stdio/stdio_serial/stdio_serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/common/utils/stdio/write.c" framework="" version="" source="common/utils/stdio/write.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/boards/atmega256rfr2_xplained_pro/atmega256rfr2_xplained_pro.h" framework="" version="" source="mega/boards/atmega256rfr2_xplained_pro/atmega256rfr2_xplained_pro.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/boards/atmega256rfr2_xplained_pro/init.c" framework="" version="" source="mega/boards/atmega256rfr2_xplained_pro/init.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/boards/atmega256rfr2_xplained_pro/led.h" framework="" version="" source="mega/boards/atmega256rfr2_xplained_pro/led.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/drivers/cpu/mega_reset_cause.h" framework="" version="" source="mega/drivers/cpu/mega_reset_cause.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/drivers/usart/usart_megarf.c" framework="" version="" source="mega/drivers/usart/usart_megarf.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/drivers/usart/usart_megarf.h" framework="" version="" source="mega/drivers/usart/usart_megarf.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/assembler.h" framework="" version="" source="mega/utils/assembler.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/assembler/gas.h" framework="" version="" source="mega/utils/assembler/gas.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/compiler.h" framework="" version="" source="mega/utils/compiler.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/preprocessor/mrepeat.h" framework="" version="" source="mega/utils/preprocessor/mrepeat.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/preprocessor/preprocessor.h" framework="" version="" source="mega/utils/preprocessor/preprocessor.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/preprocessor/stringz.h" framework="" version="" source="mega/utils/preprocessor/stringz.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/preprocessor/tpaste.h" framework="" version="" source="mega/utils/preprocessor/tpaste.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/progmem.h" framework="" version="" source="mega/utils/progmem.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/mega/utils/status_codes.h" framework="" version="" source="mega/utils/status_codes.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/EULA.txt" framework="" version="" source="thirdparty/wireless/EULA.txt" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.c" framework="" version="" source="thirdparty/wireless/addons/sio2host/uart/sio2host.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/addons/sio2host/uart/sio2host.h" framework="" version="" source="thirdparty/wireless/addons/sio2host/uart/sio2host.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/Peer2Peer.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/Peer2Peer.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/config/conf_board.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro/conf_board.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/config/conf_clock.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro/conf_clock.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/config/conf_hw_timer.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro/conf_hw_timer.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/config/conf_sio2host.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro/conf_sio2host.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro/conf_sleepmgr.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro/conf_sleepmgr.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/config/conf_usart_serial.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro/conf_usart_serial.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/conf_trx_access.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/conf_trx_access.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/config/config.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/config.h" changed="False" content-id="Atmel.ASF" />
+          <file path="AVR2130_LWMesh_Developer_Guide_v1.2.1.pdf" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/doc/AVR2130_LWMesh_Developer_Guide_v1.2.1.pdf" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwk.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwk.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkCommand.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkCommand.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkDataReq.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkDataReq.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkFrame.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkFrame.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkGroup.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkGroup.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRoute.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRoute.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRouteDiscovery.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRouteDiscovery.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRx.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkRx.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkSecurity.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkSecurity.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkTx.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/inc/nwkTx.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwk.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwk.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkDataReq.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkDataReq.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkFrame.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkFrame.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkGroup.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkGroup.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkRoute.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkRoute.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkRouteDiscovery.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkRouteDiscovery.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkRx.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkRx.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkSecurity.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkSecurity.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkTx.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/nwk/src/nwkTx.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc/atmegarfr2.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc/atmegarfr2.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc/phy.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc/phy.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/src/phy.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/src/phy.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sys.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysEncrypt.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysEncrypt.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysTimer.h" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysTimer.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sys.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/sys/src/sys.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysEncrypt.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysEncrypt.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysTimer.c" framework="" version="" source="thirdparty/wireless/avr2130_lwmesh/source/sys/src/sysTimer.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/common_hw_timer/common_hw_timer.h" framework="" version="" source="thirdparty/wireless/services/common_hw_timer/common_hw_timer.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/common_hw_timer/mega/hw_timer.c" framework="" version="" source="thirdparty/wireless/services/common_hw_timer/mega/hw_timer.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/common_hw_timer/mega/hw_timer.h" framework="" version="" source="thirdparty/wireless/services/common_hw_timer/mega/hw_timer.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/common_hw_timer/mega/lib/libmegarfr2_lib_hw_timer.a" framework="" version="" source="thirdparty/wireless/services/common_hw_timer/mega/lib/libmegarfr2_lib_hw_timer.a" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/mega/drivers/tc/tc_megarf.c" framework="" version="" source="thirdparty/wireless/services/mega/drivers/tc/tc_megarf.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/mega/drivers/tc/tc_megarf.h" framework="" version="" source="thirdparty/wireless/services/mega/drivers/tc/tc_megarf.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/sal/atmegarf_sal/src/sal.c" framework="" version="" source="thirdparty/wireless/services/sal/atmegarf_sal/src/sal.c" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/sal/inc/sal.h" framework="" version="" source="thirdparty/wireless/services/sal/inc/sal.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/sal/inc/sal_generic.h" framework="" version="" source="thirdparty/wireless/services/sal/inc/sal_generic.h" changed="False" content-id="Atmel.ASF" />
+          <file path="src/ASF/thirdparty/wireless/services/sal/inc/sal_types.h" framework="" version="" source="thirdparty/wireless/services/sal/inc/sal_types.h" changed="False" content-id="Atmel.ASF" />
+        </files>
+        <documentation help="https://asf.microchip.com/docs/3.49.1/thirdparty.wireless.avr2130_lwmesh.apps.peer2peer.atmega256rfr2_xplained_pro/html/index.html" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.49.1" />
+        </dependencies>
+        <project id="thirdparty.wireless.avr2130_lwmesh.apps.peer2peer.atmega256rfr2_xplained_pro" value="Add" config="" content-id="Atmel.ASF" />
+        <board id="board.atmega256rfr2_xplained_pro" value="Add" config="" content-id="Atmel.ASF" />
+      </framework-data>
+    </AsfFrameworkConfig>
+    <avrtool>com.atmel.avrdbg.tool.edbg</avrtool>
+    <avrtoolserialnumber>ATML1784031800000432</avrtoolserialnumber>
+    <avrdeviceexpectedsignature>0x1EA802</avrdeviceexpectedsignature>
+    <avrtoolinterface>JTAG</avrtoolinterface>
+    <com_atmel_avrdbg_tool_edbg>
+      <ToolOptions>
+        <InterfaceProperties>
+          <JtagDbgClock>220000</JtagDbgClock>
+          <JtagEnableExtResetOnStartSession>true</JtagEnableExtResetOnStartSession>
+          <JtagInChain>false</JtagInChain>
+          <JtagDevicesBefore>0</JtagDevicesBefore>
+          <JtagDevicesAfter>0</JtagDevicesAfter>
+          <JtagInstrBitsBefore>0</JtagInstrBitsBefore>
+          <JtagInstrBitsAfter>0</JtagInstrBitsAfter>
+          <JtagSelectedDeviceIndexInChain>0</JtagSelectedDeviceIndexInChain>
+          <JtagDaisyChainDevices>
+          </JtagDaisyChainDevices>
+        </InterfaceProperties>
+        <InterfaceName>JTAG</InterfaceName>
+      </ToolOptions>
+      <ToolType>com.atmel.avrdbg.tool.edbg</ToolType>
+      <ToolNumber>ATML1784031800000432</ToolNumber>
+      <ToolName>EDBG</ToolName>
+    </com_atmel_avrdbg_tool_edbg>
+    <avrtoolinterfaceclock>220000</avrtoolinterfaceclock>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.Device>-mmcu=atmega256rfr2 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega256rfr2"</avrgcc.common.Device>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>NDEBUG</Value>
+            <Value>BOARD=ATMEGA256RFR2_XPLAINED_PRO</Value>
+            <Value>SAL_TYPE=ATMEGARF_SAL</Value>
+            <Value>PHY_ATMEGARFR2</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
+            <Value>../src</Value>
+            <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/common/services/clock</Value>
+            <Value>../src/ASF/mega/drivers/cpu</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/common/services/serial/megarf_usart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/mega/drivers/usart</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc</Value>
+            <Value>../src/ASF/common/services/delay</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer/mega</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/mega/drivers/tc</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/sal/inc</Value>
+            <Value>../src/ASF/mega/boards</Value>
+            <Value>../src/ASF/mega/boards/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libmegarfr2_lib_hw_timer</Value>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer/mega/lib</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.LibrarySearchPaths>
+        <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
+        <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=ATMEGA256RFR2_XPLAINED_PRO -DPHY_ATMEGARFR2 -DSAL_TYPE=ATMEGARF_SAL</avrgcc.assembler.general.AssemblerFlags>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
+            <Value>../src</Value>
+            <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/common/services/clock</Value>
+            <Value>../src/ASF/mega/drivers/cpu</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/common/services/serial/megarf_usart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/mega/drivers/usart</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc</Value>
+            <Value>../src/ASF/common/services/delay</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer/mega</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/mega/drivers/tc</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/sal/inc</Value>
+            <Value>../src/ASF/mega/boards</Value>
+            <Value>../src/ASF/mega/boards/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.Device>-mmcu=atmega256rfr2 -B "%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\gcc\dev\atmega256rfr2"</avrgcc.common.Device>
+        <avrgcc.common.optimization.RelaxBranches>True</avrgcc.common.optimization.RelaxBranches>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>DEBUG</Value>
+            <Value>BOARD=ATMEGA256RFR2_XPLAINED_PRO</Value>
+            <Value>SAL_TYPE=ATMEGARF_SAL</Value>
+            <Value>PHY_ATMEGARFR2</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.directories.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
+            <Value>../src</Value>
+            <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/common/services/clock</Value>
+            <Value>../src/ASF/mega/drivers/cpu</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/common/services/serial/megarf_usart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/mega/drivers/usart</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc</Value>
+            <Value>../src/ASF/common/services/delay</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer/mega</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/mega/drivers/tc</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/sal/inc</Value>
+            <Value>../src/ASF/mega/boards</Value>
+            <Value>../src/ASF/mega/boards/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.compiler.directories.IncludePaths>
+        <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.OtherFlags>-fdata-sections</avrgcc.compiler.optimization.OtherFlags>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.DebugLevel>Maximum (-g3)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.compiler.miscellaneous.OtherFlags>-std=gnu99 -fno-strict-aliasing -Wstrict-prototypes -Wmissing-prototypes -Werror-implicit-function-declaration -Wpointer-arith -mrelax</avrgcc.compiler.miscellaneous.OtherFlags>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libmegarfr2_lib_hw_timer</Value>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.libraries.LibrarySearchPaths>
+          <ListValues>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer/mega/lib</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.LibrarySearchPaths>
+        <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--relax</avrgcc.linker.miscellaneous.LinkerFlags>
+        <avrgcc.assembler.general.AssemblerFlags>-mrelax -DBOARD=ATMEGA256RFR2_XPLAINED_PRO -DPHY_ATMEGARFR2 -DSAL_TYPE=ATMEGARF_SAL</avrgcc.assembler.general.AssemblerFlags>
+        <avrgcc.assembler.general.IncludePaths>
+          <ListValues>
+            <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.6.364\include\</Value>
+            <Value>../src</Value>
+            <Value>../src/ASF/thirdparty/wireless/addons/sio2host/uart</Value>
+            <Value>../src/ASF/common/utils/stdio/stdio_serial</Value>
+            <Value>../src/ASF/common/services/clock</Value>
+            <Value>../src/ASF/mega/drivers/cpu</Value>
+            <Value>../src/ASF/mega/utils/preprocessor</Value>
+            <Value>../src/ASF/mega/utils</Value>
+            <Value>../src/ASF/common/utils</Value>
+            <Value>../src/ASF/common/services/serial/megarf_usart</Value>
+            <Value>../src/ASF/common/services/serial</Value>
+            <Value>../src/ASF/mega/drivers/usart</Value>
+            <Value>../src/ASF/common/services/ioport</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/nwk/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/phy/atmegarfr2/inc</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc</Value>
+            <Value>../src/ASF/common/services/delay</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/common_hw_timer/mega</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/mega/drivers/tc</Value>
+            <Value>../src/ASF/thirdparty/wireless/services/sal/inc</Value>
+            <Value>../src/ASF/mega/boards</Value>
+            <Value>../src/ASF/mega/boards/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/ASF/common/services/gpio</Value>
+            <Value>../src/ASF/common/boards</Value>
+            <Value>../src/ASF/thirdparty/wireless/avr2130_lwmesh/apps/PeertoPeer/atmega256rfr2_xplained_pro</Value>
+            <Value>../src/config</Value>
+          </ListValues>
+        </avrgcc.assembler.general.IncludePaths>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\ASF\" />
+    <Folder Include="src\ASF\common\" />
+    <Folder Include="src\ASF\common\boards\" />
+    <Folder Include="src\ASF\common\services\" />
+    <Folder Include="src\ASF\common\services\clock\" />
+    <Folder Include="src\ASF\common\services\clock\mega\" />
+    <Folder Include="src\ASF\common\services\delay\" />
+    <Folder Include="src\ASF\common\services\delay\mega\" />
+    <Folder Include="src\ASF\common\services\gpio\" />
+    <Folder Include="src\ASF\common\services\gpio\mega_gpio\" />
+    <Folder Include="src\ASF\common\services\ioport\" />
+    <Folder Include="src\ASF\common\services\ioport\mega\" />
+    <Folder Include="src\ASF\common\services\serial\" />
+    <Folder Include="src\ASF\common\services\serial\megarf_usart\" />
+    <Folder Include="src\ASF\common\utils\" />
+    <Folder Include="src\ASF\common\utils\interrupt\" />
+    <Folder Include="src\ASF\common\utils\make\" />
+    <Folder Include="src\ASF\common\utils\stdio\" />
+    <Folder Include="src\ASF\common\utils\stdio\stdio_serial\" />
+    <Folder Include="src\ASF\mega\" />
+    <Folder Include="src\ASF\mega\boards\" />
+    <Folder Include="src\ASF\mega\boards\atmega256rfr2_xplained_pro\" />
+    <Folder Include="src\ASF\mega\drivers\" />
+    <Folder Include="src\ASF\mega\drivers\cpu\" />
+    <Folder Include="src\ASF\mega\drivers\usart\" />
+    <Folder Include="src\ASF\mega\utils\" />
+    <Folder Include="src\ASF\mega\utils\assembler\" />
+    <Folder Include="src\ASF\mega\utils\preprocessor\" />
+    <Folder Include="src\ASF\thirdparty\" />
+    <Folder Include="src\ASF\thirdparty\wireless\" />
+    <Folder Include="src\ASF\thirdparty\wireless\addons\" />
+    <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\" />
+    <Folder Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\apps\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\apps\PeertoPeer\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\apps\PeertoPeer\atmega256rfr2_xplained_pro\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\phy\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\phy\atmegarfr2\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\phy\atmegarfr2\inc\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\phy\atmegarfr2\src\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\inc\" />
+    <Folder Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\src\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\common_hw_timer\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\common_hw_timer\mega\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\common_hw_timer\mega\lib\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\mega\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\mega\drivers\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\mega\drivers\tc\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\sal\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\sal\atmegarf_sal\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\sal\atmegarf_sal\src\" />
+    <Folder Include="src\ASF\thirdparty\wireless\services\sal\inc\" />
+    <Folder Include="src\config\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\asf.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\config\conf_hw_timer.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\config\conf_clock.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\config\conf_sio2host.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\config\conf_board.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\apps\PeertoPeer\atmega256rfr2_xplained_pro\conf_sleepmgr.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\config\conf_usart_serial.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="AVR2130_LWMesh_Developer_Guide_v1.2.1.pdf">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\utils\make\Makefile.avr.in">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\status_codes.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\preprocessor\mrepeat.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\serial\megarf_usart\usart_serial.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\boards\atmega256rfr2_xplained_pro\atmega256rfr2_xplained_pro.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\services\common_hw_timer\mega\lib\libmegarfr2_lib_hw_timer.a">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\config\config.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkGroup.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkFrame.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\conf_trx_access.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\services\common_hw_timer\common_hw_timer.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\services\sal\inc\sal_types.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\progmem.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\drivers\cpu\mega_reset_cause.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\boards\atmega256rfr2_xplained_pro\led.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkSecurity.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\preprocessor\tpaste.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\phy\atmegarfr2\inc\atmegarfr2.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\clock\sysclk.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\inc\sysTimer.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\gpio\mega_gpio\mega_gpio.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkTx.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\utils\stdio\stdio_serial\stdio_serial.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\boards\board.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\common\services\clock\mega\sysclk.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <None Include="src\ASF\common\services\ioport\ioport.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\utils\interrupt\interrupt_avr8.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\serial\serial.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\phy\atmegarfr2\inc\phy.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkRoute.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\compiler.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwk.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\services\common_hw_timer\mega\hw_timer.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkRouteDiscovery.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\preprocessor\preprocessor.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\services\sal\inc\sal.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\services\mega\drivers\tc\tc_megarf.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\assembler\gas.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\utils\parts.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkCommand.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\services\sal\inc\sal_generic.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\assembler.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\inc\sysConfig.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\utils\interrupt.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkDataReq.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\inc\sys.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\utils\preprocessor\stringz.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\mega\drivers\usart\usart_megarf.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\delay\mega\cycle_counter.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\gpio\gpio.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\inc\nwkRx.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\clock\mega\sysclk.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\ioport\mega\ioport.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\inc\sysEncrypt.h">
+      <SubType>compile</SubType>
+    </None>
+    <None Include="src\ASF\common\services\delay\delay.h">
+      <SubType>compile</SubType>
+    </None>
+    <Compile Include="src\ASF\common\services\serial\usart_serial.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\common\utils\stdio\read.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\common\utils\stdio\write.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\mega\boards\atmega256rfr2_xplained_pro\init.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\mega\drivers\usart\usart_megarf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwk.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkDataReq.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkFrame.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkGroup.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkRoute.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkRouteDiscovery.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkRx.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkSecurity.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\nwk\src\nwkTx.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\phy\atmegarfr2\src\phy.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\src\sys.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\src\sysEncrypt.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\avr2130_lwmesh\source\sys\src\sysTimer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\services\common_hw_timer\mega\hw_timer.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\services\mega\drivers\tc\tc_megarf.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\ASF\thirdparty\wireless\services\sal\atmegarf_sal\src\sal.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Peer2Peer.c">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>
