@@ -55,6 +55,7 @@ src/Peer2Peer.d src/Peer2Peer.o: ../src/Peer2Peer.c \
  ../src/ASF/common/services/serial/megarf_usart/usart_serial.h \
  ../src/ASF/mega/drivers/usart/usart_megarf.h \
  ../src/config/conf_usart_serial.h \
+ ../src/ASF/mega/drivers/twi/twi_megarf.h ../src/config/conf_twi.h \
  ../src/ASF/thirdparty/wireless/services/mega/drivers/tc/tc_megarf.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdlib.h:
@@ -174,5 +175,9 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../src/ASF/mega/drivers/usart/usart_megarf.h:
 
 ../src/config/conf_usart_serial.h:
+
+../src/ASF/mega/drivers/twi/twi_megarf.h:
+
+../src/config/conf_twi.h:
 
 ../src/ASF/thirdparty/wireless/services/mega/drivers/tc/tc_megarf.h:

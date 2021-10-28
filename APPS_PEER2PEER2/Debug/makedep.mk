@@ -12,6 +12,8 @@ src\ASF\common\utils\stdio\write.c
 
 src\ASF\mega\boards\atmega256rfr2_xplained_pro\init.c
 
+src\ASF\mega\drivers\twi\twi_megarf.c
+
 src\ASF\mega\drivers\usart\usart_megarf.c
 
 src\ASF\thirdparty\wireless\addons\sio2host\uart\sio2host.c

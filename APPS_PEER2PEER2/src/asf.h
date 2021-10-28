@@ -83,6 +83,9 @@
 // From module: System Clock Control - MEGA RF A1 implementation
 #include <sysclk.h>
 
+// From module: TWI - Two-wire Master and Slave Interface
+#include <twi_megarf.h>
+
 // From module: Timer/Counter (TC) driver
 #include <tc_megarf.h>
 

@@ -57,6 +57,7 @@ src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/src/sys.d \
  ../src/ASF/common/services/serial/megarf_usart/usart_serial.h \
  ../src/ASF/mega/drivers/usart/usart_megarf.h \
  ../src/config/conf_usart_serial.h \
+ ../src/ASF/mega/drivers/twi/twi_megarf.h ../src/config/conf_twi.h \
  ../src/ASF/thirdparty/wireless/services/mega/drivers/tc/tc_megarf.h
 
 ../src/ASF/thirdparty/wireless/avr2130_lwmesh/source/sys/inc/sysConfig.h:
@@ -176,5 +177,9 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 ../src/ASF/mega/drivers/usart/usart_megarf.h:
 
 ../src/config/conf_usart_serial.h:
+
+../src/ASF/mega/drivers/twi/twi_megarf.h:
+
+../src/config/conf_twi.h:
 
 ../src/ASF/thirdparty/wireless/services/mega/drivers/tc/tc_megarf.h:
