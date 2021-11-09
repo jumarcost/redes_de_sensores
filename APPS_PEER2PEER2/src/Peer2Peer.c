@@ -42,6 +42,9 @@
  * node to another node(0x0001 to 0x0000 and vice-versa)
  */
 /*- Includes ---------------------------------------------------------------*/
+#ifndef SENSOR_H_
+#define SENSOR_H_
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -62,6 +65,8 @@
 #include "twi_megarf.h"
 #include "ioport.h"
 
+
+
 /*- Definitions ------------------------------------------------------------*/
 #ifdef NWK_ENABLE_SECURITY
   #define APP_BUFFER_SIZE     (NWK_MAX_PAYLOAD_SIZE - NWK_SECURITY_MIC_SIZE)
@@ -70,6 +75,9 @@
 #endif
 
 static uint8_t rx_data[APP_RX_BUF_SIZE];
+uint16_t sink_addr;
+
+#define BROADCAST 0xFFFF
 
 ////////////////////CONFIGURACIÓN I2C
 
@@ -86,14 +94,17 @@ static uint8_t rx_data[APP_RX_BUF_SIZE];
 
 #define DATA_LENGTH  sizeof(conf_data)
 
+
+#endif /* SENSOR_H_ */
+
 #define ALARM_TIMER_PERIOD 1000
 #define TEMP_TIMER_PERIOD 5000
 #define ACK_PENDING_TIMER_PERIOD 1000
 #define SINK_NUM 2
-#define MAX_SENT_COUNT 3
+#define MAX_SENT_COUNT 2
 
 //#define __MUTE_MESSAGES__
-
+static int sink_addrs[]={5,9};
 
 const uint8_t conf_data[] = {
 	0x60
@@ -109,6 +120,7 @@ TEMP_CTX_T temp_ctx;
 uint8_t *pData_auto;
 uint8_t *pData_forzada;
 volatile uint8_t CTC_flag;
+
 
 /*- Types ------------------------------------------------------------------*/
 typedef enum AppState_t {
@@ -129,7 +141,7 @@ typedef struct nodeSink_t {
 } nodeSink_t;
 
 /*- Prototypes -------------------------------------------------------------*/
-static void appSendData(int dstAddr, uint8_t* data_to_send);
+static void appSendData(void);
 static void temp5s_Handler(SYS_Timer_t *timer);
 void timerConfig (void);
 
@@ -142,16 +154,12 @@ static AppState_t appState = APP_STATE_INITIAL;
 static SYS_Timer_t appTimer;
 static SYS_Timer_t temp5s, alarmTimer, ackPendingTimer; //Estructura del temporizador de 5 segundos para enviar temperatura automáticamente
 static bool flag_5s=false;
-static NWK_DataReq_t appDataReq;
+static NWK_DataReq_t appDataReq, appDataReq1, appDataReq2, appDataReq3;
 static bool appDataReqBusy = false;
 static uint8_t appDataReqBuffer[APP_BUFFER_SIZE];
 static uint8_t appUartBuffer[APP_BUFFER_SIZE];
-static uint8_t appTempBuffer[] = "AL_ON";
 static uint8_t appUartBufferPtr = 0;
 static uint8_t sio_rx_length;
-int dstAddrPrev=6;
-
-volatile uint8_t watchBuffer[APP_BUFFER_SIZE];
 
 ///////////////////////////////IVAN////////////////////////////////
 
@@ -164,57 +172,115 @@ uint8_t tempMonitorData[2] = { 0, 0 };	// Vector que almacena la lectura de temp
 uint8_t tempReqData[2] = { 0, 0 };		// Vector que almacena la lectura de temperatura de la solicitud (y no sobreescribir la de monitorización)
 nodeSink_t ackPendingVect[SINK_NUM];	// Vector de booleanos que almacena si falta algún sink por confirmar el envío
 
+/////////////////////////////IVAN//////////////////////////////////
 
-
-bool btn_prev;
-bool btn_now;
 /*- Implementations --------------------------------------------------------*/
 
 /*************************************************************************//**
 *****************************************************************************/
 static void appDataConf(NWK_DataReq_t *req)
-{
+{   
+	printf("\n\r\tMensaje enviado a %i", req->dstAddr);
 	appDataReqBusy = false;
 	(void)req;
 }
 
 /*************************************************************************//**
 *****************************************************************************/
-static void appSendData(int dstAddr, uint8_t* data_to_send)
+static void appSendData(void)   //Función para enviar datos por inalámbrico
 {
-	if (appDataReqBusy || 0 == appUartBufferPtr) {
-		return;
-	}
-
-	memcpy(appDataReqBuffer, appUartBuffer, appUartBufferPtr);
-
-	//appDataReq.dstAddr = 1 - APP_ADDR;
-	appDataReq.dstAddr = dstAddr;
+	/****** CONFIGURACIÓN DEL DESTINO ******/
+	appDataReq.dstAddr = sink_addr;
 	appDataReq.dstEndpoint = APP_ENDPOINT;
 	appDataReq.srcEndpoint = APP_ENDPOINT;
 	appDataReq.options = NWK_OPT_ENABLE_SECURITY;
-	appDataReq.data = data_to_send;
-	appDataReq.size = sizeof(data_to_send);
+	/****** CONFIGURACIÓN DE LOS DATOS ******/
+	appDataReq.data = appDataReqBuffer;
+	appDataReq.size=sizeof(appDataReqBuffer);
+	/****** CONFIRMACIÓN Y ENVÍO ******/
 	appDataReq.confirm = appDataConf;
 	NWK_DataReq(&appDataReq);
 
 	appUartBufferPtr = 0;
 	appDataReqBusy = true;
-	LED_Toggle(LED0);
+}
+
+static void appSendDataMulti(void)   //Función para enviar datos por inalámbrico
+{
+	for(int i = 0; i<SINK_NUM; i++){
+		if(ackPendingVect[i].pendingType != NONE) {
+			/****** CONFIGURACIÓN DEL DESTINO ******/
+			appDataReq.dstAddr = sink_addrs[i];
+			appDataReq.dstEndpoint = APP_ENDPOINT;
+			appDataReq.srcEndpoint = APP_ENDPOINT;
+			appDataReq.options = NWK_OPT_ENABLE_SECURITY;
+			/****** CONFIGURACIÓN DE LOS DATOS ******/
+			if(ackPendingVect[0].pendingType == FORCED) sprintf((char*)appDataReqBuffer, "X|%i,%i", pData_forzada[0], pData_forzada[1]);
+			else if(ackPendingVect[0].pendingType == AUTO) sprintf((char*)appDataReqBuffer, "T|%i,%i", pData_auto[0], pData_auto[1]);
+			else sprintf((char*)appDataReqBuffer, "F            ");
+			appDataReq.data = appDataReqBuffer;
+			appDataReq.size=sizeof(appDataReqBuffer);
+			/****** CONFIRMACIÓN Y ENVÍO ******/
+			appDataReq.confirm = appDataConf;
+			NWK_DataReq(&appDataReq);
+		}
+	}
+	appUartBufferPtr = 0;
+	appDataReqBusy = true;
 }
 
 /*************************************************************************//**
 *****************************************************************************/
 static void appTimerHandler(SYS_Timer_t *timer)
 {
-	appSendData(dstAddrPrev, appDataReqBuffer);
+	appSendData();
 	(void)timer;
 }
-
+/*************************************************************************//**
+*****************************************************************************/
 static void alarmTimerHandler(SYS_Timer_t *timer) {
 	LED_Toggle(LED0);
 	(void)timer;
 }
+
+/*************************************************************************//**
+*****************************************************************************/
+
+/** INTERRUPCIÓN DEL TIMER ackPendingTimer **/
+static void ackPendingTimerHandler(SYS_Timer_t *timer) {
+	/* Esta interrupción se genera cada 500 milisegundos, para volver a enviar los paquetes a aquellos sinks que no hayan enviado el ACK */
+	printf("\n\r");
+	for(uint8_t i = 0; i < SINK_NUM; i++) {	// Recorre todos los sinks
+		if(ackPendingVect[i].pendingType != NONE) {
+			if(ackPendingVect[i].sentCounter >= MAX_SENT_COUNT) {
+				ackPendingVect[i].pendingType = NONE;
+				printf("\n\r  ## EL SINK %i NO HA ENVIADO SU ACK -- COMUNICACION FALLIDA ##", i + 1);			// Avisa al usuario que el sink tiene pendiente el envío del ACK
+			} else {
+				ackPendingVect[i].sentCounter++;
+				#ifndef __MUTE_MESSAGES__
+				printf("\n\r  :: El sink %i no ha enviado su ACK -- Se reenvia el paquete ::", i + 1);
+				#endif
+			}
+		}
+	}
+	printf("\n\r");
+	appSendDataMulti();
+}
+
+/*************************************************************************//**
+*****************************************************************************/
+
+/** FUNCIÓN QUE COLOCA INTERRUPCIONES A TODOS LOS SINKS **/
+static void ackPendingVectRaise(pendingType_t isRequest) {
+	// Recorre todo el vector de ACKs
+	for (uint8_t i = 0; i < SINK_NUM; i++) {
+		ackPendingVect[i].sentCounter = 0;			// Activa el flag de pendiente de recibir ACK
+		ackPendingVect[i].pendingType = AUTO;	// Selecciona si es un ACK de un envío de monitorización o si es un ACK de una petición expresa
+	}
+}
+
+/*************************************************************************//**
+*****************************************************************************/
 
 static void temp5s_Handler(SYS_Timer_t *timer) {
 	printf("\n\r========================== MONITORIZACION AUTOMATICA ==========================");
@@ -224,23 +290,22 @@ static void temp5s_Handler(SYS_Timer_t *timer) {
 	if(pData_auto[0] >= tempThreshold) {
 		for(uint8_t i = 0; i < SINK_NUM; i++) ackPendingVect[i].pendingType = ALARM;
 		printf("\n\r\t ## UMBRAL DE TEMPERATURA SUPERADO: SOLICITUD DE ACTIVACIÓN DE ALARMA ACTIVADA ##");
-		} else {
+	} else {
 		for(uint8_t i = 0; i < SINK_NUM; i++) {
 			ackPendingVect[i].pendingType = AUTO;
 			ackPendingVect[i].sentCounter = 0;
 		}
 	}
 	printf("\n\r");
-	//appSendDataMulti();
+	appSendDataMulti();
 	SYS_TimerStop(&ackPendingTimer);
 	SYS_TimerStart(&ackPendingTimer);	// Inicia el timer que reenviará los paquetes a los sinks que no hayan enviado su ACK
 }
-
 /*************************************************************************//**
 *****************************************************************************/
 
 void timerConfig(void)
-{
+{   
 	/* Configuración del timer de alarma */
 	alarmTimer.interval = ALARM_TIMER_PERIOD;
 	alarmTimer.mode = SYS_TIMER_PERIODIC_MODE;
@@ -251,9 +316,22 @@ void timerConfig(void)
 	temp5s.handler = temp5s_Handler;
 	SYS_TimerStart(&temp5s); //Inicialización del timer de 5 segundos
 	/* Configuración del timer de pendiente de ACK */
-	//ackPendingTimer.interval = ACK_PENDING_TIMER_PERIOD;
-	//ackPendingTimer.mode = SYS_TIMER_PERIODIC_MODE;
-	//ackPendingTimer.handler = ackPendingTimerHandler;
+	ackPendingTimer.interval = ACK_PENDING_TIMER_PERIOD;
+	ackPendingTimer.mode = SYS_TIMER_PERIODIC_MODE;
+	ackPendingTimer.handler = ackPendingTimerHandler;
+}
+	
+/*************************************************************************//**
+*****************************************************************************/
+
+/** FUNCIÓN QUE CONTROLA SI LA DIRECCIÓN QUE HA ENVIADO EL PAQUETE ES UN SINK **/
+static bool verifySink(uint16_t scrAddr) {
+	/* Comprueba si está fuera del rango de direcciones de los sinks */
+	bool result = false;
+	for(int i=0;i<SINK_NUM;i++){
+		if(scrAddr == sink_addrs[i]) result = true;
+	}
+	return result;
 }
 
 /*************************************************************************//**
@@ -265,14 +343,14 @@ static void activateAlarm(void) {
 	if(!alarmFlag) {
 		SYS_TimerStart(&alarmTimer);
 		alarmFlag = 1;
-	} else {
+		} else {
 		printf("\n\r\t:: ERROR - La alarma ya estaba activada ::");
 	}
 }
 
 /** FUNCIÓN QUE DESACTIVA LA ALARMA **/
 static void desactivateAlarm(void) {
-/* Comprueba si la alarma estaba ya desactivada, y si no lo está, la desactiva */
+	/* Comprueba si la alarma estaba ya desactivada, y si no lo está, la desactiva */
 	if(alarmFlag) {
 		SYS_TimerStop(&alarmTimer);
 		alarmFlag = 0;
@@ -283,75 +361,84 @@ static void desactivateAlarm(void) {
 
 /*************************************************************************//**
 *****************************************************************************/
-static bool appDataInd(NWK_DataInd_t *ind)
-{
+static bool appDataInd(NWK_DataInd_t *ind) //en esta función se procesan los datos recibidos
+{   
 	/* SE IMPRIME POR PANTALLA QUIEN HA ENVIADO EL PAQUETE */
-	printf("\n\r\tRecibido de: %i\n\r>> ", ind->srcAddr);
-	printf("Command: ");
-	for (uint8_t i = 0; i < ind->size; i++) sio2host_putchar(ind->data[i]);
-	printf("\n");
+	printf("\n\r\tRecibido de: %i", ind->srcAddr);
+	if(ind->dstAddr == BROADCAST) printf(" (via BROADCAST)");
+	printf("\n\r>> ");
 
-	/* SE VERIFICA EL PRIMER CARACTER DEL PAQUETE */
+    /* SE VERIFICA EL PRIMER CARACTER DEL PAQUETE */
 	switch (ind->data[0]) {
-		
+			
 		// ACTIVACIÓN DE LA ALARMA
-		case 'A':
-		case 'a': {
-			
-			if(ind->data[2] == '1'){
-				printf("Activación de la alarma");
-				// Verifica si el emisor del paquete es un sink
-				activateAlarm();	// En caso de ser un sink, activa la alarma
-			}else if (ind->data[2] == '0') {
-				printf("Apagado de la alarma");
-				desactivateAlarm();	// En caso de ser un sink, desactiva la alarma
-				LED_Off(LED0);
-			}
-			
-		} break;
 		case 'W':
 		case 'w': {
 			printf("Activación de la alarma");
 			// Verifica si el emisor del paquete es un sink
-			activateAlarm();	// En caso de ser un sink, activa la alarma
+			if(verifySink(ind->srcAddr) == false) printf("\n\r\t:: ERROR - Un nodo ha intentado activar la alarma ::");
+			else activateAlarm();	// En caso de ser un sink, activa la alarma
+		} break;	
+		
+		case 'A':
+		case 'a': {
+			if(ind->data[2]=='0'){
+				printf("Apagado de la alarma");
+				// Verifica si el emisor del paquete es un sink
+				if(verifySink(ind->srcAddr) == false) printf("\n\r\t:: ERROR - Un nodo ha intentado desactivar la alarma ::");
+				else {
+					desactivateAlarm();	// En caso de ser un sink, desactiva la alarma
+					LED_Off(LED0);
+				}
+			}else{
+				printf("Activación de la alarma");
+				// Verifica si el emisor del paquete es un sink
+				if(verifySink(ind->srcAddr) == false) printf("\n\r\t:: ERROR - Un nodo ha intentado activar la alarma ::");
+				else activateAlarm();	// En caso de ser un sink, activa la alarma
+			}
 		} break;
 				
-		
 		// SOLICITUD DE TEMPERATURA
 		case 'R':
 		case 'r': {
 			printf("Petición de temperatura");
-			
-			pData_forzada = read_temperature(); //Lectura de la temperatura del sensor externo
-			// LA IMPRIMIMOS
-			printf("\n\r\t:: La temperatura del sensor externo de mi nodo es: %i,%i ::" ,pData_forzada[0],pData_forzada[1]);
-			if(pData_forzada[0] >= tempThreshold) {
-				for(uint8_t i = 0; i < SINK_NUM; i++) ackPendingVect[i].pendingType = ALARM;
-				printf("\n\n\r\t ## UMBRAL DE TEMPERATURA SUPERADO: SOLICITUD DE ACTIVACIÓN DE ALARMA ACTIVADA ##");
-				//appSendDataMulti();
+			// Verifica si el emisor del paquete es un sink
+			if(verifySink(ind->srcAddr) == false) printf("\n\r\t:: ERROR - Peticion de temperatura por parte de un nodo ::");
+			else {
+				pData_forzada = read_temperature(); //Lectura de la temperatura del sensor externo
+				// LA IMPRIMIMOS
+				printf("\n\r\t:: La temperatura del sensor externo de mi nodo es: %i,%i ::" ,pData_forzada[0],pData_forzada[1]);
+				if(pData_forzada[0] >= tempThreshold) {
+					for(uint8_t i = 0; i < SINK_NUM; i++) ackPendingVect[i].pendingType = ALARM;
+					printf("\n\n\r\t ## UMBRAL DE TEMPERATURA SUPERADO: SOLICITUD DE ACTIVACIÓN DE ALARMA ACTIVADA ##");
+					appSendDataMulti();
 				} else {
-				ackPendingVect[ind->srcAddr - 1].pendingType = FORCED;
-				ackPendingVect[ind->srcAddr - 1].sentCounter = 0;
-				sprintf((char*)appDataReqBuffer, "X|%i,%i", pData_forzada[0], pData_forzada[1]);
-				//sink_addr = ind->srcAddr;
-				//appSendData();
-				
+					ackPendingVect[ind->srcAddr - 1].pendingType = FORCED;
+					ackPendingVect[ind->srcAddr - 1].sentCounter = 0;
+					sprintf((char*)appDataReqBuffer, "X|%i,%i", pData_forzada[0], pData_forzada[1]);
+					sink_addr = ind->srcAddr;
+					appSendData();
+				}
 				/** REINICIO DEL TIMER DE MONITOREO Y DE ACKs, Y ACTUALIZACIÓN DEL VECTOR DE ACKs **/
 				SYS_TimerStop(&temp5s);
 				SYS_TimerStart(&temp5s);
 				SYS_TimerStop(&ackPendingTimer);
 				SYS_TimerStart(&ackPendingTimer);
-			}
-		} break;
-		
-		//RECEPCIÓN DE UN ACK
-		case 'K':
+			} 
+		} break;	 
+				
+				//RECEPCIÓN DE UN ACK
+        case 'K':
 		case 'k':{
 			printf("ACK recibido");
-			// En caso de ser un sink, actualiza en el vector de ACKs que deja de estar pendiente de enviarlo
-			ackPendingVect[ind->srcAddr - 1].pendingType = NONE;
-			// Muestra los restantes
-			//showRemaining();
+			// Verifica si el emisor del paquete es un sink
+			if(verifySink(ind->srcAddr) == false) printf("\n\r\t:: ERROR - ACK procedente de un nodo ::");
+			else {
+				// En caso de ser un sink, actualiza en el vector de ACKs que deja de estar pendiente de enviarlo
+				ackPendingVect[ind->srcAddr - 1].pendingType = NONE;
+				// Muestra los restantes
+				//showRemaining();
+			}
 		} break;
 		
 		default: {
@@ -359,7 +446,7 @@ static bool appDataInd(NWK_DataInd_t *ind)
 			for (uint8_t i = 0; i < ind->size; i++) sio2host_putchar(ind->data[i]);
 		}
 	}
-	
+			
 	printf("\n\r");
 	return true;
 }
@@ -386,7 +473,7 @@ static void appInit(void)
 
 /*************************************************************************//**
 *****************************************************************************/
-static void APP_TaskHandler(void)
+static void APP_TaskHandler(void) //es como la máquina de estados del sistema
 {
 	switch (appState) {
 	case APP_STATE_INITIAL:
@@ -402,15 +489,12 @@ static void APP_TaskHandler(void)
 	default:
 		break;
 	}
-	
-	memcpy(watchBuffer,appTempBuffer,APP_BUFFER_SIZE);
-	
 	sio_rx_length = sio2host_rx(rx_data, APP_RX_BUF_SIZE);
 	if (sio_rx_length) {
 		for (uint16_t i = 0; i < sio_rx_length; i++) {
 			sio2host_putchar(rx_data[i]);
 			if (appUartBufferPtr == sizeof(appUartBuffer)) {
-				appSendData(dstAddrPrev,appDataReqBuffer);
+				appSendData();
 			}
 
 			if (appUartBufferPtr < sizeof(appUartBuffer)) {
@@ -418,21 +502,9 @@ static void APP_TaskHandler(void)
 			}
 		}
 
-		
 		SYS_TimerStop(&appTimer);
 		SYS_TimerStart(&appTimer);
-		
 	}
-	btn_prev=btn_now;
-	btn_now=ioport_get_pin_level(GPIO_PUSH_BUTTON_0);
-	if(!btn_now && btn_prev){
-		
-		appUartBufferPtr = sizeof(appTempBuffer)-1;
-		appSendData(dstAddrPrev, appTempBuffer);	
-			
-		SYS_TimerStop(&appTimer);
-		SYS_TimerStart(&appTimer);
-		}
 }
 
 /*************************************************************************//**
@@ -442,19 +514,19 @@ static void APP_TaskHandler(void)
 /********************************************************************************
 *********************************************************************************/
 void sensor_conf (void){
-/* configures the TWI configuration packet*/
-twi_package_t packet = {
-.addr[0] = (uint8_t) SLAVE_MEM_ADDR,
-.addr_length = (uint8_t)SLAVE_MEM_ADDR_LENGTH,
-.chip = TWI_SLAVE_ADDR,
-.buffer = (void *)conf_data,
-.length = DATA_LENGTH
-};
-/* Perform a multi-byte write access */
-while (twi_master_write(TWI_MASTER,&packet) != TWI_SUCCESS) {
-}
-/* waits for write completion*/
-delay_ms(5);
+	/* configures the TWI configuration packet*/
+	twi_package_t packet = {
+		.addr[0] = (uint8_t) SLAVE_MEM_ADDR,
+		.addr_length = (uint8_t)SLAVE_MEM_ADDR_LENGTH,
+		.chip = TWI_SLAVE_ADDR,
+		.buffer = (void *)conf_data,
+		.length = DATA_LENGTH
+	};
+	/* Perform a multi-byte write access */
+	while (twi_master_write(TWI_MASTER,&packet) != TWI_SUCCESS) {
+	}
+	/* waits for write completion*/
+	delay_ms(5);
 }
 /*********************************************************************************
 **********************************************************************************/
@@ -463,9 +535,9 @@ delay_ms(5);
 
 uint8_t* read_temperature (void){
 	uint8_t dato_temp[2] = {0, 0};
-
+	
 	/* configures the TWI read packet*/
-		twi_package_t packet_received = {
+	twi_package_t packet_received = {
 		.addr[0] = 0x00,
 		.addr_length = (uint8_t)SLAVE_MEM_ADDR_LENGTH,
 		.chip = TWI_SLAVE_ADDR,
@@ -473,10 +545,11 @@ uint8_t* read_temperature (void){
 		.length = 2,
 	};
 	/* Perform a multi-byte read access*/
-	while (twi_master_read(TWI_MASTER,&packet_received) != TWI_SUCCESS) {}
+	while (twi_master_read(TWI_MASTER,&packet_received) != TWI_SUCCESS) {
+	}
 	temp_ctx.readData[0] = dato_temp[0];
 	temp_ctx.readData[1] = dato_temp[1];
-
+	
 	return temp_ctx.readData;
 }
 /*********************************************************************************
@@ -499,14 +572,16 @@ void twi_init (void){
 
 /*********************************************************************************
 **********************************************************************************/
-
-/*************************************************************************//**
-*****************************************************************************/
 int main(void)
 {
 	irq_initialize_vectors();
+	#if SAMD || SAMR21 || SAML21
+	system_init();
+	delay_init();
+	#else
 	sysclk_init();
 	board_init();
+	#endif
 	SYS_Init();
 	sysclk_set_prescalers(CONFIG_SYSCLK_PSDIV);
 	ioport_init();
@@ -521,3 +596,4 @@ int main(void)
 		APP_TaskHandler();
 	}
 }
+
